@@ -35,6 +35,22 @@ class Elasticsearch extends CI_Controller {
     }
 
     /**
+     * update to es
+     */
+    function update_to_es($name,$mark,$id){
+        $params = [
+        'index' => 'my_index_gobinda_nandi',
+        'type' => 'my_type',
+        'id' => $id,
+        'body' => [ 'name' =>  $name, 'mark' => $mark ]
+        ];
+        $response = $this->elasticclient->index($params);
+        echo "<pre>";
+        print_r ($response);
+        echo "</pre>";
+    }
+
+    /**
      * save to es
      */
     function save_to_es($name,$mark){
@@ -81,7 +97,12 @@ class Elasticsearch extends CI_Controller {
         'bool' => [
         'should' => [
         'match' => [
-        'name' => $q]]]]]
+        'name' => $q
+        ]
+        ]
+        ]
+        ]
+        ]
         ];
         $response = $this->elasticclient->search($param);
         echo "<pre>";
